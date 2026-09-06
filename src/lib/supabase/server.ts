@@ -2,6 +2,8 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 const memoryStore = new Map<string, string>();
+const fallbackUrl = 'https://placeholder.supabase.co';
+const fallbackKey = 'placeholder-key';
 
 export async function getSupabaseServerClient() {
   let cookieStore: Awaited<ReturnType<typeof cookies>> | null = null;
@@ -11,10 +13,13 @@ export async function getSupabaseServerClient() {
     // Called outside Next.js request scope (e.g. testing / scripts)
   }
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || fallbackUrl;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || fallbackKey;
+
   if (!cookieStore) {
     return createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      supabaseUrl,
+      supabaseAnonKey,
       {
         cookies: {
           getAll() {
@@ -29,8 +34,8 @@ export async function getSupabaseServerClient() {
   }
 
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         getAll() {
@@ -58,9 +63,12 @@ export async function getSupabaseServiceClient() {
     // Outside request scope
   }
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || fallbackUrl;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || fallbackKey;
+
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    supabaseUrl,
+    serviceKey,
     {
       cookies: {
         getAll() {

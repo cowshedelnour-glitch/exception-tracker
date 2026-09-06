@@ -11,6 +11,8 @@ export const metadata = {
   description: 'Register as an Agent on Exception Tracker via Team Invite Link',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function RegisterWithTokenPage({
   params,
 }: {

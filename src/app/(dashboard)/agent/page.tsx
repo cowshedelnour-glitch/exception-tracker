@@ -13,6 +13,8 @@ export const metadata = {
   title: 'Agent Operations Dashboard — Exception Tracker',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function AgentDashboardPage() {
   const profile = await getCurrentUserProfile();
   if (!profile) redirect('/login');

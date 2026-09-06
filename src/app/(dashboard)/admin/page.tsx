@@ -8,6 +8,8 @@ export const metadata = {
   title: 'Admin Dashboard — Exception Tracker',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboardPage() {
   const profile = await getCurrentUserProfile();
 

@@ -15,6 +15,8 @@ export const metadata = {
   title: 'Team Manager Dashboard — Exception Tracker',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function ManagerDashboardPage() {
   const profile = await getCurrentUserProfile();
   if (!profile) redirect('/login');
