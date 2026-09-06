@@ -1,0 +1,80 @@
+{
+  "app": {
+    "name": "متتبع الاستثناءات",
+    "tagline": "إدارة الاستثناءات والتعويضات للمؤسسات"
+  },
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "incidents": "الحوادث",
+    "compensations": "التعويضات",
+    "reports": "التقارير",
+    "team": "الفريق",
+    "invites": "روابط الدعوة",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "register": "تسجيل",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "fullName": "الاسم الكامل",
+    "hrId": "الرقم الوظيفي",
+    "rememberMe": "تذكرني لمدة 30 يومًا",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "forgotPasswordInfo": "يرجى التواصل مع مدير فريقك أو مسؤول النظام لإعادة تعيين كلمة المرور."
+  },
+  "incidents": {
+    "title": "الحوادث",
+    "submit": "تقديم حادثة",
+    "referenceNumber": "الرقم المرجعي",
+    "incidentDate": "تاريخ الحادثة",
+    "submissionDate": "تاريخ التقديم",
+    "category": "الفئة",
+    "lostMinutes": "الدقائق المفقودة",
+    "compensatedMinutes": "الدقائق المعوضة",
+    "remainingMinutes": "الدقائق المتبقية",
+    "notes": "ملاحظات (اختياري)",
+    "status": "الحالة"
+  },
+  "status": {
+    "submitted": "مُقدَّم",
+    "under_review": "قيد المراجعة",
+    "approved": "موافق عليه",
+    "rejected": "مرفوض",
+    "partially_compensated": "معوض جزئياً",
+    "fully_compensated": "معوض بالكامل",
+    "pending_review": "في انتظار المراجعة"
+  },
+  "categories": {
+    "Late Arrival": "الحضور المتأخر",
+    "Early Leave": "الانصراف المبكر",
+    "Power Cut / Internet Outage": "انقطاع الكهرباء / الإنترنت",
+    "Tool ID Malfunction": "عطل في أداة تسجيل الدخول",
+    "Tardy Login": "تأخر تسجيل الدخول",
+    "Half Day Deduction": "خصم نصف يوم",
+    "Tardy Break": "تأخر بعد الاستراحة"
+  },
+  "actions": {
+    "approve": "موافقة",
+    "reject": "رفض",
+    "view": "عرض التفاصيل",
+    "export": "تصدير",
+    "exportExcel": "تصدير إلى Excel",
+    "exportPdf": "تصدير إلى PDF",
+    "cancel": "إلغاء",
+    "submit": "إرسال",
+    "save": "حفظ",
+    "search": "بحث...",
+    "filter": "تصفية",
+    "clearFilters": "مسح التصفية"
+  },
+  "common": {
+    "loading": "جارٍ التحميل...",
+    "noData": "لا توجد سجلات.",
+    "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "required": "هذا الحقل مطلوب.",
+    "minutes": "دقيقة"
+  }
+}

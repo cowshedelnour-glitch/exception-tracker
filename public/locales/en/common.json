@@ -1,0 +1,80 @@
+{
+  "app": {
+    "name": "Exception Tracker",
+    "tagline": "Enterprise Exception & Compensation Management"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "incidents": "Incidents",
+    "compensations": "Compensations",
+    "reports": "Reports",
+    "team": "Team",
+    "invites": "Invite Links",
+    "profile": "Profile",
+    "logout": "Sign Out"
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Register",
+    "email": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+    "hrId": "HR ID",
+    "rememberMe": "Remember me for 30 days",
+    "forgotPassword": "Forgot Password?",
+    "forgotPasswordInfo": "Please contact your Team Manager or System Administrator to reset your password."
+  },
+  "incidents": {
+    "title": "Incidents",
+    "submit": "Submit Incident",
+    "referenceNumber": "Reference Number",
+    "incidentDate": "Incident Date",
+    "submissionDate": "Submission Date",
+    "category": "Category",
+    "lostMinutes": "Lost Minutes",
+    "compensatedMinutes": "Compended Minutes",
+    "remainingMinutes": "Remaining Minutes",
+    "notes": "Notes (Optional)",
+    "status": "Status"
+  },
+  "status": {
+    "submitted": "Submitted",
+    "under_review": "Under Review",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "partially_compensated": "Partially Compensated",
+    "fully_compensated": "Fully Compensated",
+    "pending_review": "Pending Review"
+  },
+  "categories": {
+    "Late Arrival": "Late Arrival",
+    "Early Leave": "Early Leave",
+    "Power Cut / Internet Outage": "Power Cut / Internet Outage",
+    "Tool ID Malfunction": "Tool ID Malfunction",
+    "Tardy Login": "Tardy Login",
+    "Half Day Deduction": "Half Day Deduction",
+    "Tardy Break": "Tardy Break"
+  },
+  "actions": {
+    "approve": "Approve",
+    "reject": "Reject",
+    "view": "View Details",
+    "export": "Export",
+    "exportExcel": "Export to Excel",
+    "exportPdf": "Export to PDF",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "save": "Save",
+    "search": "Search...",
+    "filter": "Filter",
+    "clearFilters": "Clear Filters"
+  },
+  "common": {
+    "loading": "Loading...",
+    "noData": "No records found.",
+    "error": "Something went wrong. Please try again.",
+    "required": "This field is required.",
+    "minutes": "minutes"
+  }
+}
