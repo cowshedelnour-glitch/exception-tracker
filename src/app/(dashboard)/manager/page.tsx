@@ -41,14 +41,14 @@ export default async function ManagerDashboardPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight">
-              Team Management Dashboard
+              لوحة إدارة ومتابعة الفريق (Team Dashboard)
             </h1>
             <Badge variant="outline" className="font-mono text-xs">
               {profile.hrId}
             </Badge>
           </div>
           <p className="text-sm text-muted-foreground">
-            Supervisor: <span className="font-medium text-foreground">{profile.fullName}</span> • Real-time operational exception tracking & compensation authorizations.
+            المدير المشرف: <span className="font-medium text-foreground">{profile.fullName}</span> • متابعة استثناءات العمل واعتماد تعويض الدقائق لحظياً.
           </p>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default async function ManagerDashboardPage() {
         <Card className="border-border/60 shadow-sm transition-all hover:border-border">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Supervised Agents
+              الموظفون المشرف عليهم
             </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -68,7 +68,7 @@ export default async function ManagerDashboardPage() {
               {stats.teamAgentsCount}
             </div>
             <p className="text-[11px] text-muted-foreground mt-1">
-              Active assigned team agents
+              موظف نشط بالفريق
             </p>
           </CardContent>
         </Card>
@@ -77,16 +77,16 @@ export default async function ManagerDashboardPage() {
         <Card className="border-border/60 shadow-sm transition-all hover:border-border">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Team Lost Time
+              الدقائق المفقودة بالفريق
             </CardTitle>
             <Clock className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold font-heading">
-              {stats.teamLostMinutes} <span className="text-sm font-normal text-muted-foreground">mins</span>
+              {stats.teamLostMinutes} <span className="text-sm font-normal text-muted-foreground">دقيقة</span>
             </div>
             <p className="text-[11px] text-muted-foreground mt-1">
-              {Math.floor(stats.teamLostMinutes / 60)}h {stats.teamLostMinutes % 60}m approved exceptions
+              {Math.floor(stats.teamLostMinutes / 60)} ساعة و {stats.teamLostMinutes % 60} دقيقة
             </p>
           </CardContent>
         </Card>
@@ -95,16 +95,16 @@ export default async function ManagerDashboardPage() {
         <Card className="border-border/60 shadow-sm transition-all hover:border-border">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Team Compensated
+              الدقائق المعوضة المعتمدة
             </CardTitle>
             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold font-heading text-emerald-500">
-              {stats.teamCompensatedMinutes} <span className="text-sm font-normal text-muted-foreground">mins</span>
+              {stats.teamCompensatedMinutes} <span className="text-sm font-normal text-muted-foreground">دقيقة</span>
             </div>
             <p className="text-[11px] text-muted-foreground mt-1">
-              {Math.floor(stats.teamCompensatedMinutes / 60)}h {stats.teamCompensatedMinutes % 60}m approved compensation
+              {Math.floor(stats.teamCompensatedMinutes / 60)} ساعة و {stats.teamCompensatedMinutes % 60} دقيقة
             </p>
           </CardContent>
         </Card>
@@ -113,7 +113,7 @@ export default async function ManagerDashboardPage() {
         <Card className="border-amber-500/40 bg-amber-500/5 shadow-sm transition-all hover:border-amber-500">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-xs font-semibold uppercase tracking-wider text-amber-500">
-              Pending Authorization
+              في انتظار الاعتماد
             </CardTitle>
             <AlertTriangle className="h-4 w-4 text-amber-500" />
           </CardHeader>
@@ -122,7 +122,7 @@ export default async function ManagerDashboardPage() {
               {stats.pendingApprovalsCount}
             </div>
             <p className="text-[11px] text-muted-foreground mt-1">
-              {pendingIncidents.length} incidents, {pendingCompensations.length} compensations
+              {pendingIncidents.length} استثناء، {pendingCompensations.length} تعويض
             </p>
           </CardContent>
         </Card>
@@ -131,9 +131,9 @@ export default async function ManagerDashboardPage() {
       {/* Pending Review Section (Incidents & Compensations) */}
       <div className="space-y-6">
         <div>
-          <h2 className="text-lg font-bold font-heading">Authorization Queues</h2>
+          <h2 className="text-lg font-bold font-heading">قوائم المراجعة والاعتماد (Authorization Queues)</h2>
           <p className="text-xs text-muted-foreground mt-0.5">
-            Review and evaluate pending agent exception requests with atomic balance verification
+            مراجعة وتقييم طلبات الاستثناءات والتعويضات المعلقة بدقة رصيد صفر-خطأ
           </p>
         </div>
 
@@ -143,14 +143,14 @@ export default async function ManagerDashboardPage() {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-base font-semibold font-heading">
-                  Pending Incidents
+                  الاستثناءات المعلقة (Pending Incidents)
                 </CardTitle>
                 <Badge variant="secondary" className="font-mono text-xs">
                   {pendingIncidents.length}
                 </Badge>
               </div>
               <CardDescription className="text-xs text-muted-foreground">
-                Approve or reject lost-time incident submissions
+                اعتماد أو رفض طلبات الدقائق المفقودة المقدمة من الموظفين
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -163,14 +163,14 @@ export default async function ManagerDashboardPage() {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-base font-semibold font-heading">
-                  Pending Compensations
+                  تعويضات الدقائق المعلقة (Pending Compensations)
                 </CardTitle>
                 <Badge variant="secondary" className="font-mono text-xs">
                   {pendingCompensations.length}
                 </Badge>
               </div>
               <CardDescription className="text-xs text-muted-foreground">
-                Authorize overtime minute compensations (zero-error enforced)
+                اعتماد طلبات تعويض الدقائق الإضافية والتحقق من تصفير الرصيد
               </CardDescription>
             </CardHeader>
             <CardContent>

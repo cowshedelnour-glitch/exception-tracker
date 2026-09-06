@@ -26,10 +26,10 @@ export default async function DashboardLayout({
 
   const roleLabel =
     profile.role === 'admin'
-      ? 'مسؤول النظام (Admin)'
+      ? 'مسؤول النظام'
       : profile.role === 'manager'
-      ? 'مدير الفريق (Manager)'
-      : 'موظف (Agent)';
+      ? 'مدير الفريق'
+      : 'موظف العمليات';
 
   const roleBadgeVariant =
     profile.role === 'admin'
@@ -44,11 +44,14 @@ export default async function DashboardLayout({
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href={`/${profile.role}`} className="flex items-center gap-2.5 font-heading font-bold text-lg text-foreground hover:opacity-90 transition-opacity">
-              <div className="h-9 w-9 rounded-lg bg-accent/15 border border-accent/30 flex items-center justify-center text-accent">
+            <Link href={`/${profile.role}`} className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+              <div className="h-9 w-9 rounded-lg bg-accent/15 border border-accent/30 flex items-center justify-center text-accent shrink-0">
                 <Activity className="h-5 w-5" />
               </div>
-              <span className="hidden sm:inline">متتبع الاستثناءات (Exception Tracker)</span>
+              <div className="flex flex-col">
+                <span className="font-heading font-bold text-base leading-tight">متتبع الاستثناءات</span>
+                <span className="text-[10px] text-muted-foreground font-mono leading-none">Exception Tracker</span>
+              </div>
             </Link>
 
             <Badge variant={roleBadgeVariant} className="text-xs font-medium">
@@ -100,7 +103,7 @@ export default async function DashboardLayout({
                   title="تسجيل الخروج"
                 >
                   <LogOut className="h-4 w-4" />
-                  <span className="ml-1.5 hidden sm:inline text-xs font-medium">خروج (Sign Out)</span>
+                  <span className="ml-1.5 hidden sm:inline text-xs font-medium">تسجيل الخروج</span>
                 </Button>
               </form>
             </div>
