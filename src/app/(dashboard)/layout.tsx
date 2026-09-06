@@ -54,6 +54,29 @@ export default async function DashboardLayout({
             <Badge variant={roleBadgeVariant} className="text-xs capitalize font-mono">
               {roleLabel}
             </Badge>
+
+            {profile.role === 'admin' && (
+              <nav className="flex items-center gap-1.5 ml-3 pl-3 border-l border-border/60">
+                <Link
+                  href="/admin"
+                  className="px-2.5 py-1 text-xs font-medium rounded-md bg-destructive/10 text-destructive border border-destructive/20 hover:bg-destructive/15 transition-colors"
+                >
+                  Admin
+                </Link>
+                <Link
+                  href="/manager"
+                  className="px-2.5 py-1 text-xs font-medium rounded-md bg-accent/10 text-accent border border-accent/20 hover:bg-accent/15 transition-colors"
+                >
+                  Manager View
+                </Link>
+                <Link
+                  href="/agent"
+                  className="px-2.5 py-1 text-xs font-medium rounded-md bg-muted text-foreground border border-border/60 hover:bg-muted/80 transition-colors"
+                >
+                  Agent View
+                </Link>
+              </nav>
+            )}
           </div>
 
           <div className="flex items-center gap-3">
