@@ -103,7 +103,7 @@ export function PendingIncidentsQueue({ incidents }: PendingIncidentsQueueProps)
     return (
       <div className="p-8 rounded-xl border border-dashed border-border/70 text-center text-xs text-muted-foreground">
         <Check className="h-6 w-6 text-emerald-500 mx-auto mb-2 opacity-50" />
-        لا توجد استثناءات معلقة بانتظار المراجعة. كل شيء مكتمل!
+        No pending incidents awaiting review. All clear!
       </div>
     );
   }
@@ -121,20 +121,20 @@ export function PendingIncidentsQueue({ incidents }: PendingIncidentsQueueProps)
                 <span className="font-mono text-sm font-bold text-foreground">
                   {item.referenceNumber}
                 </span>
-                <Badge variant="outline" className="text-xs font-medium">
+                <Badge variant="outline" className="text-xs">
                   {item.categoryName}
                 </Badge>
                 <span className="text-xs font-semibold text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full">
-                  {item.lostMinutes} دقيقة
+                  {item.lostMinutes} mins
                 </span>
               </div>
 
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
                 <span className="font-medium text-foreground">
-                  الموظف: {item.agentName} ({item.agentHrId})
+                  Agent: {item.agentName} ({item.agentHrId})
                 </span>
-                <span>تاريخ الحادثة: {item.incidentDate}</span>
-                <span>وقت التقديم: {new Date(item.submissionDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                <span>Incident Date: {item.incidentDate}</span>
+                <span>Submitted: {new Date(item.submissionDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
               </div>
 
               {item.notes && (
@@ -149,7 +149,7 @@ export function PendingIncidentsQueue({ incidents }: PendingIncidentsQueueProps)
               <Button
                 variant="outline"
                 size="sm"
-                className="h-9 px-3 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive border-destructive/30 font-medium"
+                className="h-9 px-3 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive border-destructive/30"
                 onClick={() => {
                   setRejectingItem(item);
                   setRejectComment('');
@@ -157,13 +157,13 @@ export function PendingIncidentsQueue({ incidents }: PendingIncidentsQueueProps)
                 }}
                 disabled={loadingId === item.id}
               >
-                <X className="h-3.5 w-3.5 ml-1" />
-                رفض
+                <X className="h-3.5 w-3.5 mr-1" />
+                Reject
               </Button>
 
               <Button
                 size="sm"
-                className="h-9 px-3 text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm font-medium"
+                className="h-9 px-3 text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
                 onClick={() => handleApprove(item)}
                 disabled={loadingId === item.id}
               >
@@ -171,8 +171,8 @@ export function PendingIncidentsQueue({ incidents }: PendingIncidentsQueueProps)
                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
                 ) : (
                   <>
-                    <Check className="h-3.5 w-3.5 ml-1" />
-                    موافقة
+                    <Check className="h-3.5 w-3.5 mr-1" />
+                    Approve
                   </>
                 )}
               </Button>
@@ -185,11 +185,11 @@ export function PendingIncidentsQueue({ incidents }: PendingIncidentsQueueProps)
       <Dialog open={!!rejectingItem} onOpenChange={(open) => !open && setRejectingItem(null)}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-lg font-bold font-heading text-destructive">
-              رفض طلب الاستثناء {rejectingItem?.referenceNumber}
+            <DialogTitle className="text-lg font-bold font-heading">
+              Reject Incident {rejectingItem?.referenceNumber}
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
-              سبب الرفض إلزامي لحفظ سجل التدقيق الإداري.
+              A detailed rejection reason is required for compliance audit trails.
             </DialogDescription>
           </DialogHeader>
 
@@ -202,25 +202,25 @@ export function PendingIncidentsQueue({ incidents }: PendingIncidentsQueueProps)
 
           <div className="space-y-2 pt-2">
             <Label htmlFor="rejectReason" className="text-xs font-semibold">
-              سبب الرفض <span className="text-destructive">*</span>
+              Rejection Reason <span className="text-destructive">*</span>
             </Label>
             <Textarea
               id="rejectReason"
-              placeholder="اكتب سبب الرفض بوضوح (مثال: تم تغطية الموعد مسبقاً، سجلات النظام طبيعية)..."
+              placeholder="State clearly why this incident exception is rejected (e.g. Schedule already covered, tool logs show normal activity)..."
               rows={4}
               value={rejectComment}
               onChange={(e) => setRejectComment(e.target.value)}
             />
           </div>
 
-          <DialogFooter className="pt-2 gap-2">
+          <DialogFooter className="pt-2">
             <Button
               type="button"
               variant="outline"
               onClick={() => setRejectingItem(null)}
               disabled={!!loadingId}
             >
-              إلغاء
+              Cancel
             </Button>
             <Button
               type="button"
@@ -228,7 +228,7 @@ export function PendingIncidentsQueue({ incidents }: PendingIncidentsQueueProps)
               onClick={handleConfirmReject}
               disabled={!!loadingId}
             >
-              {loadingId ? <Loader2 className="h-4 w-4 animate-spin" /> : 'تأكيد الرفض'}
+              {loadingId ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Confirm Rejection'}
             </Button>
           </DialogFooter>
         </DialogContent>

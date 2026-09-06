@@ -77,15 +77,15 @@ export function SubmitCompensationDialog({ eligibleIncidents }: SubmitCompensati
         return;
       }
 
-      toast.success('تم تقديم طلب التعويض بنجاح', {
-        description: `الرقم المرجعي: ${res.data?.referenceNumber}`,
+      toast.success('Compensation Request Submitted', {
+        description: `Reference Number: ${res.data?.referenceNumber}`,
       });
       reset();
       setOpen(false);
       router.refresh();
     } catch (err: any) {
       console.error('Submit compensation error:', err);
-      setErrorMessage(err.message || 'حدث خطأ أثناء تقديم التعويض');
+      setErrorMessage(err.message || 'An unexpected error occurred');
     }
   };
 
@@ -98,20 +98,18 @@ export function SubmitCompensationDialog({ eligibleIncidents }: SubmitCompensati
           variant="outline"
           className="h-11 px-4 font-medium flex items-center gap-2 border-accent/40 text-accent hover:bg-accent/10"
           disabled={!hasEligible}
-          title={!hasEligible ? 'لا توجد استثناءات معتمدة قابلة للتعويض' : 'تعويض دقائق معتمدة'}
+          title={!hasEligible ? 'No approved incidents available for compensation' : 'Compensate approved lost minutes'}
         >
           <Scale className="h-4 w-4" />
-          <span>طلب تعويض دقائق</span>
+          <span>Compensate Minutes</span>
         </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold font-heading">
-            تقديم طلب تعويض دقائق (Compensate Minutes)
-          </DialogTitle>
+          <DialogTitle className="text-xl font-bold font-heading">Submit Minute Compensation</DialogTitle>
           <DialogDescription className="text-sm text-muted-foreground">
-            تسجيل ساعات عمل إضافية أو مناوبة تغطية لتعويض دقائق الاستثناءات المعتمدة.
+            Log extra time worked to compensate for approved lost operational minutes.
           </DialogDescription>
         </DialogHeader>
 
@@ -126,7 +124,7 @@ export function SubmitCompensationDialog({ eligibleIncidents }: SubmitCompensati
           {/* Incident Select */}
           <div className="space-y-1.5">
             <Label htmlFor="incidentId" className="text-sm font-medium">
-              اختر الاستثناء المعتمد للتعويض <span className="text-destructive">*</span>
+              Select Approved Incident <span className="text-destructive">*</span>
             </Label>
             <Select
               value={selectedIncidentId}
@@ -140,12 +138,12 @@ export function SubmitCompensationDialog({ eligibleIncidents }: SubmitCompensati
               disabled={isSubmitting}
             >
               <SelectTrigger id="incidentId" className="h-11">
-                <SelectValue placeholder="اختر الحادثة أو الاستثناء..." />
+                <SelectValue placeholder="Choose an incident to compensate..." />
               </SelectTrigger>
               <SelectContent>
                 {eligibleIncidents.map((inc) => (
                   <SelectItem key={inc.id} value={inc.id}>
-                    <span className="font-mono font-semibold">{inc.referenceNumber}</span> — {inc.categoryName} (متبقي {inc.remainingMinutes} دقيقة)
+                    <span className="font-mono font-semibold">{inc.referenceNumber}</span> — {inc.categoryName} ({inc.remainingMinutes}m remaining)
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -160,23 +158,23 @@ export function SubmitCompensationDialog({ eligibleIncidents }: SubmitCompensati
             <div className="p-3.5 rounded-xl bg-muted/60 border border-border/70 space-y-2 text-xs">
               <div className="flex items-center gap-1.5 font-semibold text-foreground">
                 <Info className="h-4 w-4 text-accent" />
-                <span>رصيد الاستثناء {selectedIncident.referenceNumber}</span>
+                <span>Balance for {selectedIncident.referenceNumber}</span>
               </div>
               <div className="grid grid-cols-3 gap-2 text-center pt-1 border-t border-border/40">
                 <div>
-                  <span className="text-muted-foreground block text-[11px]">إجمالي المفقود</span>
-                  <span className="font-bold text-sm">{selectedIncident.lostMinutes} دقيقة</span>
+                  <span className="text-muted-foreground block text-[11px]">Total Lost</span>
+                  <span className="font-bold text-sm">{selectedIncident.lostMinutes}m</span>
                 </div>
                 <div>
-                  <span className="text-muted-foreground block text-[11px]">المعوض</span>
+                  <span className="text-muted-foreground block text-[11px]">Compensated</span>
                   <span className="font-bold text-sm text-emerald-500">
-                    {selectedIncident.lostMinutes - selectedIncident.remainingMinutes} دقيقة
+                    {selectedIncident.lostMinutes - selectedIncident.remainingMinutes}m
                   </span>
                 </div>
                 <div>
-                  <span className="text-muted-foreground block text-[11px]">المتبقي للتعويض</span>
+                  <span className="text-muted-foreground block text-[11px]">Available Remaining</span>
                   <span className="font-bold text-sm text-accent">
-                    {selectedIncident.remainingMinutes} دقيقة
+                    {selectedIncident.remainingMinutes}m
                   </span>
                 </div>
               </div>
@@ -187,7 +185,7 @@ export function SubmitCompensationDialog({ eligibleIncidents }: SubmitCompensati
             {/* Compensation Date */}
             <div className="space-y-1.5">
               <Label htmlFor="compensationDate" className="text-sm font-medium">
-                تاريخ التعويض <span className="text-destructive">*</span>
+                Compensation Date <span className="text-destructive">*</span>
               </Label>
               <div className="relative">
                 <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
@@ -207,7 +205,7 @@ export function SubmitCompensationDialog({ eligibleIncidents }: SubmitCompensati
             {/* Compensation Minutes */}
             <div className="space-y-1.5">
               <Label htmlFor="compensationMinutes" className="text-sm font-medium">
-                عدد الدقائق المعوضة <span className="text-destructive">*</span>
+                Minutes to Compensate <span className="text-destructive">*</span>
               </Label>
               <div className="relative">
                 <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
@@ -232,34 +230,34 @@ export function SubmitCompensationDialog({ eligibleIncidents }: SubmitCompensati
           {/* Notes */}
           <div className="space-y-1.5">
             <Label htmlFor="compNotes" className="text-sm font-medium">
-              ملاحظات <span className="text-xs text-muted-foreground">(اختياري)</span>
+              Notes <span className="text-xs text-muted-foreground">(Optional)</span>
             </Label>
             <Textarea
               id="compNotes"
-              placeholder="اكتب تفاصيل الوردية الإضافية أو طبيعة التغطية المنجزة..."
+              placeholder="Overtime shift details or coverage information..."
               rows={2}
               disabled={isSubmitting}
               {...register('notes')}
             />
           </div>
 
-          <DialogFooter className="pt-3 gap-2">
+          <DialogFooter className="pt-3">
             <Button
               type="button"
               variant="outline"
               onClick={() => setOpen(false)}
               disabled={isSubmitting}
             >
-              إلغاء
+              Cancel
             </Button>
             <Button type="submit" disabled={isSubmitting || !selectedIncident} className="min-w-[140px]">
               {isSubmitting ? (
                 <>
-                  <Loader2 className="ml-2 h-4 w-4 animate-spin" />
-                  جارٍ التقديم...
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Processing...
                 </>
               ) : (
-                'إرسال طلب التعويض'
+                'Submit Compensation'
               )}
             </Button>
           </DialogFooter>

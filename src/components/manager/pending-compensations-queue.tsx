@@ -96,7 +96,7 @@ export function PendingCompensationsQueue({ compensations }: PendingCompensation
     return (
       <div className="p-8 rounded-xl border border-dashed border-border/70 text-center text-xs text-muted-foreground">
         <Scale className="h-6 w-6 text-emerald-500 mx-auto mb-2 opacity-50" />
-        لا توجد طلبات تعويض معلقة بانتظار المراجعة. كل شيء مكتمل!
+        No pending compensation requests awaiting review. All caught up!
       </div>
     );
   }
@@ -115,19 +115,19 @@ export function PendingCompensationsQueue({ compensations }: PendingCompensation
                   {item.referenceNumber}
                 </span>
                 <span className="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
-                  +{item.compensationMinutes} دقيقة مطلوبة
+                  +{item.compensationMinutes} mins requested
                 </span>
                 <span className="text-xs text-muted-foreground font-mono bg-muted/60 px-2 py-0.5 rounded-md">
-                  الرصيد المتبقي: {item.parentRemainingMinutes} دقيقة
+                  Balance: {item.parentRemainingMinutes}m remaining
                 </span>
               </div>
 
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
                 <span className="font-medium text-foreground">
-                  الموظف: {item.agentName} ({item.agentHrId})
+                  Agent: {item.agentName} ({item.agentHrId})
                 </span>
-                <span>تاريخ التعويض: {item.compensationDate}</span>
-                <span>المفقود الأصلي: {item.parentLostMinutes} دقيقة</span>
+                <span>Work Date: {item.compensationDate}</span>
+                <span>Original Lost: {item.parentLostMinutes}m</span>
               </div>
 
               {item.notes && (
@@ -142,20 +142,20 @@ export function PendingCompensationsQueue({ compensations }: PendingCompensation
               <Button
                 variant="outline"
                 size="sm"
-                className="h-9 px-3 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive border-destructive/30 font-medium"
+                className="h-9 px-3 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive border-destructive/30"
                 onClick={() => {
                   setRejectingItem(item);
                   setRejectComment('');
                 }}
                 disabled={loadingId === item.id}
               >
-                <X className="h-3.5 w-3.5 ml-1" />
-                رفض
+                <X className="h-3.5 w-3.5 mr-1" />
+                Reject
               </Button>
 
               <Button
                 size="sm"
-                className="h-9 px-3 text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm font-medium"
+                className="h-9 px-3 text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
                 onClick={() => handleApprove(item)}
                 disabled={loadingId === item.id}
               >
@@ -163,8 +163,8 @@ export function PendingCompensationsQueue({ compensations }: PendingCompensation
                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
                 ) : (
                   <>
-                    <Check className="h-3.5 w-3.5 ml-1" />
-                    موافقة
+                    <Check className="h-3.5 w-3.5 mr-1" />
+                    Approve
                   </>
                 )}
               </Button>
@@ -177,35 +177,35 @@ export function PendingCompensationsQueue({ compensations }: PendingCompensation
       <Dialog open={!!rejectingItem} onOpenChange={(open) => !open && setRejectingItem(null)}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-lg font-bold font-heading text-destructive">
-              رفض طلب التعويض
+            <DialogTitle className="text-lg font-bold font-heading">
+              Reject Compensation Request
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
-              رفض تعويض بقيمة {rejectingItem?.compensationMinutes} دقيقة للحادثة {rejectingItem?.referenceNumber}.
+              Rejecting compensation of {rejectingItem?.compensationMinutes} mins for {rejectingItem?.referenceNumber}.
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-2 pt-2">
             <Label htmlFor="compRejectReason" className="text-xs font-semibold">
-              ملاحظة الرفض <span className="text-xs text-muted-foreground">(اختياري)</span>
+              Rejection Comment <span className="text-xs text-muted-foreground">(Optional)</span>
             </Label>
             <Textarea
               id="compRejectReason"
-              placeholder="اكتب سبب رفض طلب التعويض هنا..."
+              placeholder="State reason for rejecting this compensation..."
               rows={3}
               value={rejectComment}
               onChange={(e) => setRejectComment(e.target.value)}
             />
           </div>
 
-          <DialogFooter className="pt-2 gap-2">
+          <DialogFooter className="pt-2">
             <Button
               type="button"
               variant="outline"
               onClick={() => setRejectingItem(null)}
               disabled={!!loadingId}
             >
-              إلغاء
+              Cancel
             </Button>
             <Button
               type="button"
@@ -213,7 +213,7 @@ export function PendingCompensationsQueue({ compensations }: PendingCompensation
               onClick={handleConfirmReject}
               disabled={!!loadingId}
             >
-              {loadingId ? <Loader2 className="h-4 w-4 animate-spin" /> : 'تأكيد الرفض'}
+              {loadingId ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Confirm Rejection'}
             </Button>
           </DialogFooter>
         </DialogContent>

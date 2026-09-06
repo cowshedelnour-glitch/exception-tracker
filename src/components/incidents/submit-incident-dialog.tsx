@@ -73,34 +73,32 @@ export function SubmitIncidentDialog({ categories }: SubmitIncidentDialogProps) 
         return;
       }
 
-      toast.success('تم تسجيل الاستثناء بنجاح', {
-        description: `الرقم المرجعي: ${res.data?.referenceNumber}`,
+      toast.success('Incident Submitted Successfully', {
+        description: `Reference Number: ${res.data?.referenceNumber}`,
       });
       reset();
       setOpen(false);
       router.refresh();
     } catch (err: any) {
       console.error('Submit incident error:', err);
-      setErrorMessage(err.message || 'حدث خطأ غير متوقع');
+      setErrorMessage(err.message || 'An unexpected error occurred');
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="h-11 px-4 font-medium flex items-center gap-2 shadow-sm bg-primary text-primary-foreground hover:bg-primary/90">
+        <Button className="h-11 px-4 font-medium flex items-center gap-2 shadow-sm">
           <Plus className="h-4 w-4" />
-          <span>تسجيل استثناء جديد</span>
+          <span>Report Incident</span>
         </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold font-heading">
-            تسجيل استثناء تشغيلي (Report Incident)
-          </DialogTitle>
+          <DialogTitle className="text-xl font-bold font-heading">Report Operational Incident</DialogTitle>
           <DialogDescription className="text-sm text-muted-foreground">
-            تسجيل تأخير أو وقت مفقود في العمل ليتم مراجعته واعتماده من مدير الفريق.
+            Submit an operational delay or lost time exception. Your Team Manager will review this submission.
           </DialogDescription>
         </DialogHeader>
 
@@ -115,7 +113,7 @@ export function SubmitIncidentDialog({ categories }: SubmitIncidentDialogProps) 
           {/* Category Select */}
           <div className="space-y-1.5">
             <Label htmlFor="category" className="text-sm font-medium">
-              فئة الاستثناء <span className="text-destructive">*</span>
+              Incident Category <span className="text-destructive">*</span>
             </Label>
             <Select
               value={selectedCategoryId}
@@ -123,7 +121,7 @@ export function SubmitIncidentDialog({ categories }: SubmitIncidentDialogProps) 
               disabled={isSubmitting}
             >
               <SelectTrigger id="category" className="h-11">
-                <SelectValue placeholder="اختر نوع الاستثناء..." />
+                <SelectValue placeholder="Select incident category" />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((cat) => (
@@ -142,7 +140,7 @@ export function SubmitIncidentDialog({ categories }: SubmitIncidentDialogProps) 
             {/* Incident Date */}
             <div className="space-y-1.5">
               <Label htmlFor="incidentDate" className="text-sm font-medium">
-                تاريخ الاستثناء <span className="text-destructive">*</span>
+                Incident Date <span className="text-destructive">*</span>
               </Label>
               <div className="relative">
                 <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
@@ -163,7 +161,7 @@ export function SubmitIncidentDialog({ categories }: SubmitIncidentDialogProps) 
             {/* Lost Minutes */}
             <div className="space-y-1.5">
               <Label htmlFor="lostMinutes" className="text-sm font-medium">
-                الدقائق المفقودة <span className="text-destructive">*</span>
+                Lost Minutes <span className="text-destructive">*</span>
               </Label>
               <div className="relative">
                 <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
@@ -188,11 +186,11 @@ export function SubmitIncidentDialog({ categories }: SubmitIncidentDialogProps) 
           {/* Notes */}
           <div className="space-y-1.5">
             <Label htmlFor="notes" className="text-sm font-medium">
-              ملاحظات وتفاصيل <span className="text-xs text-muted-foreground">(اختياري)</span>
+              Notes & Context <span className="text-xs text-muted-foreground">(Optional)</span>
             </Label>
             <Textarea
               id="notes"
-              placeholder="اكتب أي تفاصيل إضافية، سبب التأخير، أو أرقام تذاكر الدعم الفني..."
+              placeholder="Provide any relevant context, ticket IDs, or root causes..."
               rows={3}
               disabled={isSubmitting}
               {...register('notes')}
@@ -202,23 +200,23 @@ export function SubmitIncidentDialog({ categories }: SubmitIncidentDialogProps) 
             )}
           </div>
 
-          <DialogFooter className="pt-3 gap-2">
+          <DialogFooter className="pt-3">
             <Button
               type="button"
               variant="outline"
               onClick={() => setOpen(false)}
               disabled={isSubmitting}
             >
-              إلغاء
+              Cancel
             </Button>
             <Button type="submit" disabled={isSubmitting} className="min-w-[120px]">
               {isSubmitting ? (
                 <>
-                  <Loader2 className="ml-2 h-4 w-4 animate-spin" />
-                  جارٍ الإرسال...
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Submitting...
                 </>
               ) : (
-                'إرسال الاستثناء'
+                'Submit Incident'
               )}
             </Button>
           </DialogFooter>

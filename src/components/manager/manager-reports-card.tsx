@@ -38,14 +38,14 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
           <div>
             <div className="flex items-center gap-2">
               <CardTitle className="text-lg font-bold font-heading">
-                التقارير التشغيلية والتصدير المعتمد (Reports & Exports)
+                Operational Reports & Compliance Exports
               </CardTitle>
               <Badge variant="outline" className="font-mono text-xs">
                 BRD §32-§34
               </Badge>
             </div>
             <CardDescription className="text-xs text-muted-foreground mt-0.5">
-              تصدير جداول إكسيل بـ 10 أعمدة مدمجة أو تقارير PDF رسمية مطابقة لفريقك
+              Export 10-column flattened spreadsheets or print-ready PDF audit documents scoped to your team
             </CardDescription>
           </div>
 
@@ -68,10 +68,10 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
             <div>
               <div className="flex items-center gap-2 mb-1.5">
                 <Calendar className="h-4 w-4 text-blue-500" />
-                <span className="text-xs font-semibold font-heading">استثناءات اليوم</span>
+                <span className="text-xs font-semibold font-heading">Daily Exceptions</span>
               </div>
               <p className="text-[11px] text-muted-foreground leading-relaxed">
-                سجلات الاستثناءات والتعويضات المسجلة اليوم للمراجعة اللحظية الفورية.
+                Exceptions and compensation records logged today for immediate operational review.
               </p>
             </div>
             <div className="flex items-center gap-1.5 mt-3 pt-2 border-t border-border/40">
@@ -87,10 +87,10 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
             <div>
               <div className="flex items-center gap-2 mb-1.5">
                 <Clock className="h-4 w-4 text-amber-500" />
-                <span className="text-xs font-semibold font-heading">الملخص الأسبوعي</span>
+                <span className="text-xs font-semibold font-heading">Weekly Summary</span>
               </div>
               <p className="text-[11px] text-muted-foreground leading-relaxed">
-                إجمالي العمليات والوقت المفقود وتفاصيل الفريق لآخر 7 أيام عمل.
+                Rolling 7-day operational totals, lost time breakdowns, and team trends.
               </p>
             </div>
             <div className="flex items-center gap-1.5 mt-3 pt-2 border-t border-border/40">
@@ -101,8 +101,8 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
                 asChild
               >
                 <a href="/api/export/excel?type=weekly" download>
-                  <FileSpreadsheet className="h-3.5 w-3.5 ml-1 text-emerald-500" />
-                  إكسيل أسبوعي
+                  <FileSpreadsheet className="h-3.5 w-3.5 mr-1 text-emerald-500" />
+                  Weekly Excel
                 </a>
               </Button>
               <Button
@@ -123,10 +123,10 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
             <div>
               <div className="flex items-center gap-2 mb-1.5">
                 <Clock className="h-4 w-4 text-rose-500" />
-                <span className="text-xs font-semibold font-heading">تدقيق الدقائق المفقودة</span>
+                <span className="text-xs font-semibold font-heading">Lost Minutes Audit</span>
               </div>
               <p className="text-[11px] text-muted-foreground leading-relaxed">
-                تحليل مفصل لفئات الوقت المفقود لجميع الموظفين الخاضعين للإشراف.
+                Detailed category analysis of lost production time across all active supervised agents.
               </p>
             </div>
             <div className="flex items-center gap-1.5 mt-3 pt-2 border-t border-border/40">
@@ -137,8 +137,8 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
                 asChild
               >
                 <a href="/api/export/excel?type=lost_minutes" download>
-                  <FileSpreadsheet className="h-3.5 w-3.5 ml-1 text-emerald-500" />
-                  إكسيل المفقود
+                  <FileSpreadsheet className="h-3.5 w-3.5 mr-1 text-emerald-500" />
+                  Lost Mins Excel
                 </a>
               </Button>
               <Button
@@ -159,10 +159,10 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
             <div>
               <div className="flex items-center gap-2 mb-1.5">
                 <Scale className="h-4 w-4 text-accent" />
-                <span className="text-xs font-semibold font-heading">الأرصدة والتسوية</span>
+                <span className="text-xs font-semibold font-heading">Balances & Recovery</span>
               </div>
               <p className="text-[11px] text-muted-foreground leading-relaxed">
-                سجل تسوية صفر-خطأ: التعويضات المعتمدة مقابل الدقائق المتبقية.
+                Zero-Error reconciliation log: approved compensations vs remaining uncompensated minutes.
               </p>
             </div>
             <div className="flex items-center gap-1.5 mt-3 pt-2 border-t border-border/40">
@@ -173,8 +173,8 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
                 asChild
               >
                 <a href="/api/export/excel?type=compensation" download>
-                  <FileSpreadsheet className="h-3.5 w-3.5 ml-1 text-emerald-500" />
-                  إكسيل الأرصدة
+                  <FileSpreadsheet className="h-3.5 w-3.5 mr-1 text-emerald-500" />
+                  Balances Excel
                 </a>
               </Button>
               <Button
@@ -195,19 +195,19 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
         <div className="p-4 rounded-lg border border-border/60 bg-background space-y-3">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             <Filter className="h-3.5 w-3.5" />
-            <span>تصفية وتخصيص نطاق التصدير</span>
+            <span>Custom Export Scope & Filtering</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
             {/* Agent Select */}
             <div className="space-y-1">
-              <label className="text-[11px] font-medium text-muted-foreground">الموظف</label>
+              <label className="text-[11px] font-medium text-muted-foreground">Agent</label>
               <Select value={selectedAgentId} onValueChange={setSelectedAgentId}>
                 <SelectTrigger className="h-9 text-xs">
-                  <SelectValue placeholder="كافة موظفي الفريق" />
+                  <SelectValue placeholder="All Agents" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">كافة موظفي الفريق</SelectItem>
+                  <SelectItem value="all">All Team Agents</SelectItem>
                   {teamAgents.map((a) => (
                     <SelectItem key={a.id} value={a.id}>
                       {a.fullName} ({a.hrId})
@@ -219,24 +219,24 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
 
             {/* Status Select */}
             <div className="space-y-1">
-              <label className="text-[11px] font-medium text-muted-foreground">الحالة</label>
+              <label className="text-[11px] font-medium text-muted-foreground">Status</label>
               <Select value={selectedStatus} onValueChange={setSelectedStatus}>
                 <SelectTrigger className="h-9 text-xs">
-                  <SelectValue placeholder="كافة الحالات" />
+                  <SelectValue placeholder="All Statuses" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">كافة الحالات</SelectItem>
-                  <SelectItem value="pending">في انتظار المراجعة</SelectItem>
-                  <SelectItem value="approved">معتمد</SelectItem>
-                  <SelectItem value="compensated">معوض (جزئي / كامل)</SelectItem>
-                  <SelectItem value="rejected">مرفوض</SelectItem>
+                  <SelectItem value="all">All Statuses</SelectItem>
+                  <SelectItem value="pending">Pending Review</SelectItem>
+                  <SelectItem value="approved">Approved</SelectItem>
+                  <SelectItem value="compensated">Compensated (Part / Full)</SelectItem>
+                  <SelectItem value="rejected">Rejected</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             {/* Start Date */}
             <div className="space-y-1">
-              <label className="text-[11px] font-medium text-muted-foreground">من تاريخ</label>
+              <label className="text-[11px] font-medium text-muted-foreground">From Date</label>
               <Input
                 type="date"
                 value={startDate}
@@ -247,7 +247,7 @@ export function ManagerReportsCard({ teamAgents }: ManagerReportsCardProps) {
 
             {/* End Date */}
             <div className="space-y-1">
-              <label className="text-[11px] font-medium text-muted-foreground">إلى تاريخ</label>
+              <label className="text-[11px] font-medium text-muted-foreground">To Date</label>
               <Input
                 type="date"
                 value={endDate}

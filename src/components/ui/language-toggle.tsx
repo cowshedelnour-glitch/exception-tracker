@@ -1,52 +1,38 @@
 'use client';
 
 import * as React from 'react';
+import { Languages } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function LanguageToggle() {
-  const [currentLang, setCurrentLang] = React.useState<'en' | 'ar'>('ar');
+  const [currentLang, setCurrentLang] = React.useState<'en' | 'ar'>('en');
 
   React.useEffect(() => {
-    const saved = localStorage.getItem('app_language') as 'en' | 'ar';
-    const active = saved || 'ar';
-    setCurrentLang(active);
-    document.documentElement.lang = active;
-    document.documentElement.dir = active === 'ar' ? 'rtl' : 'ltr';
+    localStorage.setItem('app_language', 'en');
+    setCurrentLang('en');
+    document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
   }, []);
 
-  const setLanguage = (lang: 'en' | 'ar') => {
-    setCurrentLang(lang);
-    localStorage.setItem('app_language', lang);
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    window.dispatchEvent(new Event('languagechange'));
+  const toggleLanguage = () => {
+    const nextLang = currentLang === 'en' ? 'ar' : 'en';
+    setCurrentLang(nextLang);
+    localStorage.setItem('app_language', nextLang);
+    document.documentElement.lang = nextLang;
+    document.documentElement.dir = nextLang === 'ar' ? 'rtl' : 'ltr';
   };
 
   return (
-    <div className="flex items-center border border-border/60 rounded-lg p-0.5 bg-muted/40 text-xs">
-      <button
-        type="button"
-        onClick={() => setLanguage('ar')}
-        className={`px-2 py-1 rounded-md font-medium transition-all ${
-          currentLang === 'ar'
-            ? 'bg-background text-foreground shadow-sm font-bold'
-            : 'text-muted-foreground hover:text-foreground'
-        }`}
-        title="التحويل للغة العربية"
-      >
-        عربي
-      </button>
-      <button
-        type="button"
-        onClick={() => setLanguage('en')}
-        className={`px-2 py-1 rounded-md font-medium transition-all ${
-          currentLang === 'en'
-            ? 'bg-background text-foreground shadow-sm font-bold'
-            : 'text-muted-foreground hover:text-foreground'
-        }`}
-        title="Switch to English"
-      >
-        EN
-      </button>
-    </div>
+    <Button
+      variant="ghost"
+      size="sm"
+      className="h-11 px-3 rounded-lg flex items-center gap-1.5 font-medium text-sm transition-colors duration-200"
+      onClick={toggleLanguage}
+      aria-label={currentLang === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية'}
+      title={currentLang === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية'}
+    >
+      <Languages className="h-4 w-4" />
+      <span>{currentLang === 'en' ? 'العربية' : 'English'}</span>
+    </Button>
   );
 }

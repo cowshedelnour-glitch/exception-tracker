@@ -38,14 +38,14 @@ export default async function AgentDashboardPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight">
-              لوحة عمليات الموظف (Agent Operations)
+              Agent Operations
             </h1>
             <Badge variant="outline" className="font-mono text-xs">
               {profile.hrId}
             </Badge>
           </div>
           <p className="text-sm text-muted-foreground">
-            مرحباً بك مجدداً، <span className="font-medium text-foreground">{profile.fullName}</span>. سجّل استثناءات العمل وتابع رصيد تعويض الدقائق لحظياً.
+            Welcome back, <span className="font-medium text-foreground">{profile.fullName}</span>. Track your operational exceptions and submit time compensations.
           </p>
         </div>
 
@@ -62,16 +62,16 @@ export default async function AgentDashboardPage() {
         <Card className="border-border/60 shadow-sm transition-all hover:border-border">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              الدقائق المفقودة المعتمدة
+              Approved Lost Time
             </CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold font-heading">
-              {stats.approvedLostMinutes} <span className="text-sm font-normal text-muted-foreground">دقيقة</span>
+              {stats.approvedLostMinutes} <span className="text-sm font-normal text-muted-foreground">mins</span>
             </div>
             <p className="text-[11px] text-muted-foreground mt-1">
-              {Math.floor(stats.approvedLostMinutes / 60)} ساعة و {stats.approvedLostMinutes % 60} دقيقة معتمدة
+              {Math.floor(stats.approvedLostMinutes / 60)}h {stats.approvedLostMinutes % 60}m approved exceptions
             </p>
           </CardContent>
         </Card>
@@ -80,16 +80,16 @@ export default async function AgentDashboardPage() {
         <Card className="border-border/60 shadow-sm transition-all hover:border-border">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              الدقائق المعوضة المعتمدة
+              Approved Compensated
             </CardTitle>
             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold font-heading text-emerald-500">
-              {stats.approvedCompensatedMinutes} <span className="text-sm font-normal text-muted-foreground">دقيقة</span>
+              {stats.approvedCompensatedMinutes} <span className="text-sm font-normal text-muted-foreground">mins</span>
             </div>
             <p className="text-[11px] text-muted-foreground mt-1">
-              ساعات عمل إضافية وتغطية مؤكدة
+              Verified overtime & coverage
             </p>
           </CardContent>
         </Card>
@@ -98,16 +98,16 @@ export default async function AgentDashboardPage() {
         <Card className="border-accent/40 bg-accent/5 shadow-sm transition-all hover:border-accent">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-xs font-semibold uppercase tracking-wider text-accent">
-              الرصيد المتبقي للتعويض
+              Remaining to Compensate
             </CardTitle>
             <Scale className="h-4 w-4 text-accent" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold font-heading text-accent">
-              {stats.remainingMinutes} <span className="text-sm font-normal text-foreground/70">دقيقة</span>
+              {stats.remainingMinutes} <span className="text-sm font-normal text-foreground/70">mins</span>
             </div>
             <p className="text-[11px] text-muted-foreground mt-1 font-mono">
-              المفقود ({stats.approvedLostMinutes} دقيقة) - المعوض ({stats.approvedCompensatedMinutes} دقيقة)
+              Lost ({stats.approvedLostMinutes}m) - Compensated ({stats.approvedCompensatedMinutes}m)
             </p>
           </CardContent>
         </Card>
@@ -116,7 +116,7 @@ export default async function AgentDashboardPage() {
         <Card className="border-border/60 shadow-sm transition-all hover:border-border">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              في انتظار المراجعة
+              Pending Review
             </CardTitle>
             <AlertTriangle className="h-4 w-4 text-amber-500" />
           </CardHeader>
@@ -125,7 +125,7 @@ export default async function AgentDashboardPage() {
               {stats.pendingCount}
             </div>
             <p className="text-[11px] text-muted-foreground mt-1">
-              طلبات بانتظار اعتماد مدير الفريق
+              Awaiting manager evaluation
             </p>
           </CardContent>
         </Card>

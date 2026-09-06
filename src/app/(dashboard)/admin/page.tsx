@@ -48,28 +48,28 @@ export default async function AdminDashboardPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Badge variant="destructive" className="px-2.5 py-0.5 text-xs font-mono uppercase tracking-wider">
-              صلاحية مسؤول عام • Root Admin
+              Root Governance
             </Badge>
-            <span className="text-xs text-muted-foreground font-mono">الرقم الوظيفي: {profile?.hrId}</span>
+            <span className="text-xs text-muted-foreground font-mono">ID: {profile?.hrId}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight">
-            لوحة الإدارة العامة (System Administration)
+            System Administration
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            إشراف عام على المنظومة، إدارة الفرق والمديرين، والوصول الفوري لكافة لوحات العمليات.
+            Global operational overview, team directory, and direct operations access.
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button asChild variant="outline" size="sm" className="h-10 gap-2 font-medium">
+          <Button asChild variant="outline" size="sm" className="h-10 gap-2">
             <a href="/api/export/excel?type=all" download>
               <FileSpreadsheet className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-              تصدير إكسيل (Excel)
+              Export Excel
             </a>
           </Button>
-          <Button asChild variant="outline" size="sm" className="h-10 gap-2 font-medium">
+          <Button asChild variant="outline" size="sm" className="h-10 gap-2">
             <a href="/api/export/pdf?type=all" download>
               <FileText className="h-4 w-4 text-destructive" />
-              تصدير تقرير (PDF)
+              Export PDF
             </a>
           </Button>
         </div>
@@ -77,8 +77,8 @@ export default async function AdminDashboardPage() {
 
       {/* QUICK OPERATIONS ACCESS (Interactive Hero Cards) */}
       <div className="space-y-3">
-        <h2 className="text-sm font-semibold tracking-wide text-muted-foreground">
-          لوحات العمليات التفاعلية • Quick Operations Access
+        <h2 className="text-sm font-semibold tracking-wide uppercase text-muted-foreground font-mono">
+          Interactive Operational Dashboards
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* Manager Operations Card */}
@@ -88,17 +88,17 @@ export default async function AdminDashboardPage() {
                 <div className="h-10 w-10 rounded-xl bg-accent/20 border border-accent/30 flex items-center justify-center text-accent">
                   <Briefcase className="h-5 w-5" />
                 </div>
-                <Badge className="bg-accent text-accent-foreground font-medium">صلاحيات المدير الكاملة</Badge>
+                <Badge className="bg-accent text-accent-foreground">Full Operations</Badge>
               </div>
-              <CardTitle className="text-lg font-heading mt-3">لوحة تحكم المدير (Manager Dashboard)</CardTitle>
+              <CardTitle className="text-lg font-heading mt-3">Manager Dashboard (لوحة تحكم المدير)</CardTitle>
               <CardDescription className="text-sm leading-relaxed">
-                مراجعة واعتماد طلبات الاستثناءات المعلقة، الموافقة على تعويضات الدقائق، الاطلاع على الرسوم البيانية، وإنشاء روابط دعوة الفريق.
+                Review and approve team incident submissions, approve compensation requests, inspect charts, and generate team invite links.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button asChild className="w-full h-11 font-medium bg-accent text-accent-foreground hover:bg-accent/90 gap-2 text-sm">
+              <Button asChild className="w-full h-11 font-medium bg-accent text-accent-foreground hover:bg-accent/90 gap-2">
                 <Link href="/manager">
-                  فتح لوحة تحكم المدير (Open Manager View)
+                  Open Manager Dashboard
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
@@ -112,17 +112,17 @@ export default async function AdminDashboardPage() {
                 <div className="h-10 w-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
                   <Users className="h-5 w-5" />
                 </div>
-                <Badge variant="outline" className="font-medium">واجهة تقديم الموظف</Badge>
+                <Badge variant="outline">Employee Workspace</Badge>
               </div>
-              <CardTitle className="text-lg font-heading mt-3">لوحة تقديم الموظف (Agent Dashboard)</CardTitle>
+              <CardTitle className="text-lg font-heading mt-3">Agent Dashboard (لوحة تقديم الموظف)</CardTitle>
               <CardDescription className="text-sm leading-relaxed">
-                تسجيل حوادث واستثناءات العمل (تأخير، عطل تقني، انقطاع إنترنت)، تقديم طلبات تعويض الدقائق، ومتابعة الرصيد اللحظي.
+                Submit new operational exceptions (late arrival, system outage), request minutes compensation, and track balance in real time.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button asChild variant="outline" className="w-full h-11 font-medium gap-2 text-sm">
+              <Button asChild variant="outline" className="w-full h-11 font-medium gap-2">
                 <Link href="/agent">
-                  فتح لوحة تقديم الموظف (Open Agent View)
+                  Open Agent Dashboard
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
@@ -135,41 +135,41 @@ export default async function AdminDashboardPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="border-border/60">
           <CardHeader className="pb-2 space-y-0">
-            <CardTitle className="text-xs font-mono uppercase text-muted-foreground">الفرق النشطة (Teams)</CardTitle>
+            <CardTitle className="text-xs font-mono uppercase text-muted-foreground">Teams Active</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl sm:text-3xl font-bold font-heading">{allTeams.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">فرق تشغيل مسجلة</p>
+            <p className="text-xs text-muted-foreground mt-1">Operational teams</p>
           </CardContent>
         </Card>
 
         <Card className="border-border/60">
           <CardHeader className="pb-2 space-y-0">
-            <CardTitle className="text-xs font-mono uppercase text-muted-foreground">المديرون المشرفون (Managers)</CardTitle>
+            <CardTitle className="text-xs font-mono uppercase text-muted-foreground">Managers</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl sm:text-3xl font-bold font-heading text-accent">{managers.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">مشرفو الفرق</p>
+            <p className="text-xs text-muted-foreground mt-1">Team supervisors</p>
           </CardContent>
         </Card>
 
         <Card className="border-border/60">
           <CardHeader className="pb-2 space-y-0">
-            <CardTitle className="text-xs font-mono uppercase text-muted-foreground">الموظفون (Agents)</CardTitle>
+            <CardTitle className="text-xs font-mono uppercase text-muted-foreground">Agents</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl sm:text-3xl font-bold font-heading">{agents.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">موظفو العمليات</p>
+            <p className="text-xs text-muted-foreground mt-1">Registered staff</p>
           </CardContent>
         </Card>
 
         <Card className="border-border/60">
           <CardHeader className="pb-2 space-y-0">
-            <CardTitle className="text-xs font-mono uppercase text-muted-foreground">إجمالي الاستثناءات (Incidents)</CardTitle>
+            <CardTitle className="text-xs font-mono uppercase text-muted-foreground">Total Incidents</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl sm:text-3xl font-bold font-heading text-destructive">{allIncidents.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">استثناء مسجل بالمنظومة</p>
+            <p className="text-xs text-muted-foreground mt-1">Recorded exceptions</p>
           </CardContent>
         </Card>
       </div>
@@ -181,13 +181,13 @@ export default async function AdminDashboardPage() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-base font-heading">دليل فرق العمل والمديرين المشرفين</CardTitle>
+                <CardTitle className="text-base font-heading">Operations Teams & Supervisors</CardTitle>
                 <CardDescription className="text-xs mt-0.5">
-                  نظرة على كافة الفرق النشطة ومسؤولي الإشراف
+                  Overview of all active teams and assigned leadership
                 </CardDescription>
               </div>
               <Badge variant="secondary" className="font-mono text-xs">
-                {allTeams.length} فرق
+                {allTeams.length} Teams
               </Badge>
             </div>
           </CardHeader>
@@ -201,12 +201,12 @@ export default async function AdminDashboardPage() {
                     <div>
                       <p className="font-medium text-sm text-foreground">{team.name}</p>
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        المدير المشرف: <span className="font-medium text-foreground/90">{teamMgr?.fullName || 'غير محدد'}</span>
+                        Supervisor: <span className="font-mono text-foreground/80">{teamMgr?.fullName || 'Unassigned'}</span>
                       </p>
                     </div>
                     <div className="text-right">
                       <Badge variant="outline" className="text-xs font-mono">
-                        {teamAgentsCount} موظف
+                        {teamAgentsCount} Agents
                       </Badge>
                     </div>
                   </div>
@@ -221,13 +221,13 @@ export default async function AdminDashboardPage() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-base font-heading">فئات الاستثناءات المعتمدة</CardTitle>
+                <CardTitle className="text-base font-heading">Exception Categories</CardTitle>
                 <CardDescription className="text-xs mt-0.5">
-                  الفئات الرسمية المعتمدة لاحتساب الدقائق
+                  Standard enterprise categories
                 </CardDescription>
               </div>
               <Badge variant="outline" className="font-mono text-xs">
-                {allCategories.length} فئات
+                {allCategories.length} Types
               </Badge>
             </div>
           </CardHeader>
@@ -240,7 +240,7 @@ export default async function AdminDashboardPage() {
                     <span className="font-medium">{cat.name}</span>
                   </div>
                   <Badge variant="secondary" className="text-[10px] px-1.5 py-0 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10">
-                    نشط (Active)
+                    Active
                   </Badge>
                 </div>
               ))}

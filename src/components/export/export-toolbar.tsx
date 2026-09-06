@@ -25,11 +25,11 @@ export interface ExportToolbarProps {
 }
 
 const REPORT_TYPE_PRESETS = [
-  { id: 'all', label: 'كافة السجلات (شامل)', desc: 'يطبق الفلاتر والبحث النشط في الصفحة' },
-  { id: 'daily', label: 'تقرير استثناءات اليوم', desc: 'استثناءات وتعويضات اليوم الفورية' },
-  { id: 'weekly', label: 'تقرير ملخص أسبوعي', desc: 'آخر 7 أيام من العمليات التشغيلية' },
-  { id: 'lost_minutes', label: 'تقرير الدقائق المفقودة', desc: 'تفصيل فئات الوقت الضائع المعتمد' },
-  { id: 'compensation', label: 'تقرير التعويضات والأرصدة', desc: 'أرصدة التعويضات المتبقية والمعوضة' },
+  { id: 'all', label: 'All Records (WYSIWYG)', desc: 'Respects your active filters & search query' },
+  { id: 'daily', label: 'Daily Exception Report', desc: "Today's exceptions and compensations" },
+  { id: 'weekly', label: 'Weekly Summary Report', desc: 'Last 7 days of operational tracking' },
+  { id: 'lost_minutes', label: 'Lost Minutes Report', desc: 'Focus on approved lost time categories' },
+  { id: 'compensation', label: 'Compensation & Balances Report', desc: 'Focus on remaining balances and compensations' },
 ];
 
 export function ExportToolbar({
@@ -66,7 +66,7 @@ export function ExportToolbar({
     else setIsExportingPdf(true);
 
     const type = typeOverride || selectedReportType;
-    const toastId = toast.loading(`جارٍ تجهيز ملف ${isExcel ? 'الإكسيل (Excel)' : 'التقرير (PDF)'}...`);
+    const toastId = toast.loading(`Generating ${isExcel ? 'Excel' : 'PDF'} report...`);
 
     try {
       const url = buildExportUrl(format, type);
@@ -74,7 +74,7 @@ export function ExportToolbar({
 
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.error || `فشل تصدير ${format.toUpperCase()}`);
+        throw new Error(errorData.error || `Failed to export ${format.toUpperCase()}`);
       }
 
       const blob = await res.blob();
@@ -98,12 +98,12 @@ export function ExportToolbar({
       window.URL.revokeObjectURL(downloadUrl);
 
       toast.success(
-        `تم تحميل ${isExcel ? 'جدول الإكسيل' : 'تقرير الـ PDF'} بنجاح!`,
+        `${isExcel ? 'Excel spreadsheet' : 'PDF document'} downloaded successfully!`,
         { id: toastId }
       );
     } catch (err: any) {
       console.error('Export error:', err);
-      toast.error(err.message || 'فشل التصدير. يرجى المحاولة مرة أخرى.', { id: toastId });
+      toast.error(err.message || 'Export failed. Please try again.', { id: toastId });
     } finally {
       if (isExcel) setIsExportingExcel(false);
       else setIsExportingPdf(false);
@@ -118,12 +118,12 @@ export function ExportToolbar({
             <Button variant="outline" size="sm" className="h-9 gap-1.5 font-normal text-xs text-muted-foreground hover:text-foreground">
               <SlidersHorizontal className="h-3.5 w-3.5" />
               <span>
-                التقرير: <strong className="text-foreground font-medium">{REPORT_TYPE_PRESETS.find((p) => p.id === selectedReportType)?.label.split(' ')[0]}</strong>
+                Report: <strong className="text-foreground font-medium">{REPORT_TYPE_PRESETS.find((p) => p.id === selectedReportType)?.label.split(' ')[0]}</strong>
               </span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-64">
-            <DropdownMenuLabel className="text-xs text-muted-foreground">اختر نوع التقرير</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-xs text-muted-foreground">Select Report Type</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {REPORT_TYPE_PRESETS.map((preset) => (
               <DropdownMenuItem
@@ -151,14 +151,14 @@ export function ExportToolbar({
         onClick={() => handleDownload('excel')}
         disabled={isExportingExcel || isExportingPdf}
         className="h-9 gap-1.5 font-medium text-xs hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
-        title="تصدير جدول إكسيل بالأعمدة العشرة المعتمدة"
+        title="Download Excel spreadsheet with 10 fixed columns and flattened rows"
       >
         {isExportingExcel ? (
           <Loader2 className="h-3.5 w-3.5 animate-spin text-emerald-500" />
         ) : (
           <FileSpreadsheet className="h-3.5 w-3.5 text-emerald-500" />
         )}
-        <span>تصدير إكسيل</span>
+        <span>Export Excel</span>
       </Button>
 
       {/* PDF Export Button */}
@@ -168,14 +168,14 @@ export function ExportToolbar({
         onClick={() => handleDownload('pdf')}
         disabled={isExportingExcel || isExportingPdf}
         className="h-9 gap-1.5 font-medium text-xs hover:border-blue-500/50 hover:bg-blue-500/10 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-        title="تصدير تقرير PDF رسمي قابل للطباعة"
+        title="Download print-ready PDF with metadata summary and table"
       >
         {isExportingPdf ? (
           <Loader2 className="h-3.5 w-3.5 animate-spin text-blue-500" />
         ) : (
           <FileText className="h-3.5 w-3.5 text-blue-500" />
         )}
-        <span>تصدير PDF</span>
+        <span>Export PDF</span>
       </Button>
     </div>
   );

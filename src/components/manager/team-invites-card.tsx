@@ -48,12 +48,12 @@ export function TeamInvitesCard({ invites }: TeamInvitesCardProps) {
       // Auto copy to clipboard
       await navigator.clipboard.writeText(res.data.inviteUrl);
       setCopiedToken(res.data.token);
-      toast.success('تم إنشاء رابط الدعوة (24 ساعة) ونسخه للحافظة!', {
+      toast.success('New 24-Hour Invite Link Generated & Copied to Clipboard!', {
         description: res.data.inviteUrl,
       });
       router.refresh();
     } catch (err: any) {
-      toast.error(err.message || 'خطأ أثناء إنشاء الرابط');
+      toast.error(err.message || 'Error generating link');
     } finally {
       setGenerating(false);
     }
@@ -64,7 +64,7 @@ export function TeamInvitesCard({ invites }: TeamInvitesCardProps) {
     const url = `${origin}/register/${token}`;
     await navigator.clipboard.writeText(url);
     setCopiedToken(token);
-    toast.success('تم نسخ رابط الدعوة إلى الحافظة');
+    toast.success('Invite link copied to clipboard');
     setTimeout(() => setCopiedToken(null), 3000);
   };
 
@@ -73,13 +73,13 @@ export function TeamInvitesCard({ invites }: TeamInvitesCardProps) {
     try {
       const res = await revokeTeamInviteAction(id);
       if (!res.success) {
-        toast.error(res.error || 'فشل إبطال الرابط');
+        toast.error(res.error || 'Failed to revoke link');
         return;
       }
-      toast.info('تم إبطال رابط الدعوة بنجاح');
+      toast.info('Invite link revoked successfully');
       router.refresh();
     } catch (err: any) {
-      toast.error(err.message || 'خطأ أثناء إبطال الرابط');
+      toast.error(err.message || 'Error revoking link');
     } finally {
       setRevokingId(null);
     }
@@ -89,26 +89,26 @@ export function TeamInvitesCard({ invites }: TeamInvitesCardProps) {
     <Card className="border-border/60 shadow-sm">
       <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4">
         <div>
-          <CardTitle className="text-lg font-bold font-heading">روابط دعوة أعضاء الفريق (Team Invites)</CardTitle>
+          <CardTitle className="text-lg font-bold font-heading">Team Invite Links</CardTitle>
           <CardDescription className="text-xs text-muted-foreground mt-0.5">
-            إنشاء وإدارة روابط تسجيل صالحة لمدة 24 ساعة لضم موظفي الفريق الجدد
+            Generate and manage 24-hour onboarding links for your team agents
           </CardDescription>
         </div>
 
         <Button
           onClick={handleGenerate}
           disabled={generating}
-          className="h-10 text-xs font-medium flex items-center gap-1.5 shadow-sm bg-primary text-primary-foreground hover:bg-primary/90"
+          className="h-10 text-xs font-medium flex items-center gap-1.5 shadow-sm"
         >
           {generating ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              جارٍ الإنشاء...
+              Generating...
             </>
           ) : (
             <>
               <Plus className="h-4 w-4" />
-              إنشاء رابط دعوة (24 ساعة)
+              Generate 24-Hour Invite Link
             </>
           )}
         </Button>
@@ -119,19 +119,19 @@ export function TeamInvitesCard({ invites }: TeamInvitesCardProps) {
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">
-                <TableHead className="font-semibold text-xs">رمز الرابط (Token)</TableHead>
-                <TableHead className="font-semibold text-xs">تاريخ الإنشاء</TableHead>
-                <TableHead className="font-semibold text-xs">ينتهي خلال</TableHead>
-                <TableHead className="font-semibold text-xs text-center">عدد التسجيلات</TableHead>
-                <TableHead className="font-semibold text-xs text-center">الحالة</TableHead>
-                <TableHead className="font-semibold text-xs text-right">الإجراءات</TableHead>
+                <TableHead className="font-semibold text-xs">Token Key</TableHead>
+                <TableHead className="font-semibold text-xs">Generated</TableHead>
+                <TableHead className="font-semibold text-xs">Expires In</TableHead>
+                <TableHead className="font-semibold text-xs text-center">Registrations</TableHead>
+                <TableHead className="font-semibold text-xs text-center">Status</TableHead>
+                <TableHead className="font-semibold text-xs text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {invites.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={6} className="h-28 text-center text-xs text-muted-foreground">
-                    لم يتم إنشاء أي روابط دعوة بعد. اضغط على الزر أعلاه لإنشاء أول رابط لفريقك.
+                    No invite links created yet. Click above to generate your first team invite.
                   </TableCell>
                 </TableRow>
               ) : (
@@ -144,13 +144,13 @@ export function TeamInvitesCard({ invites }: TeamInvitesCardProps) {
 
                   let statusBadge = (
                     <Badge className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30">
-                      نشط
+                      Active
                     </Badge>
                   );
                   if (!inv.isActive) {
-                    statusBadge = <Badge variant="secondary">ملغى</Badge>;
+                    statusBadge = <Badge variant="secondary">Revoked</Badge>;
                   } else if (isExpired) {
-                    statusBadge = <Badge variant="outline" className="text-muted-foreground">منتهي</Badge>;
+                    statusBadge = <Badge variant="outline" className="text-muted-foreground">Expired</Badge>;
                   }
 
                   const isCopying = copiedToken === inv.token;
@@ -164,7 +164,7 @@ export function TeamInvitesCard({ invites }: TeamInvitesCardProps) {
                         {new Date(inv.createdAt).toLocaleDateString()} {new Date(inv.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </TableCell>
                       <TableCell className="text-xs text-muted-foreground">
-                        {isExpired ? 'منتهي الصلاحية' : `${remainingHours} ساعة`}
+                        {isExpired ? 'Expired' : `${remainingHours} hours`}
                       </TableCell>
                       <TableCell className="text-xs text-center font-mono font-semibold">
                         {inv.usageCount}
@@ -181,17 +181,17 @@ export function TeamInvitesCard({ invites }: TeamInvitesCardProps) {
                                 size="sm"
                                 className="h-8 px-2 text-xs flex items-center gap-1 hover:bg-muted"
                                 onClick={() => handleCopy(inv.token)}
-                                title="نسخ رابط التسجيل"
+                                title="Copy registration link"
                               >
                                 {isCopying ? (
                                   <>
                                     <Check className="h-3.5 w-3.5 text-emerald-500" />
-                                    <span className="text-emerald-500">تم النسخ</span>
+                                    <span className="text-emerald-500">Copied</span>
                                   </>
                                 ) : (
                                   <>
                                     <Copy className="h-3.5 w-3.5" />
-                                    <span>نسخ</span>
+                                    <span>Copy</span>
                                   </>
                                 )}
                               </Button>
@@ -202,14 +202,14 @@ export function TeamInvitesCard({ invites }: TeamInvitesCardProps) {
                                 className="h-8 px-2 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive"
                                 onClick={() => handleRevoke(inv.id)}
                                 disabled={revokingId === inv.id}
-                                title="إبطال الرابط"
+                                title="Revoke invite link"
                               >
                                 {revokingId === inv.id ? (
                                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
                                 ) : (
                                   <>
                                     <Ban className="h-3.5 w-3.5" />
-                                    <span>إلغاء</span>
+                                    <span>Revoke</span>
                                   </>
                                 )}
                               </Button>

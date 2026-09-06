@@ -37,18 +37,16 @@ export function ManagerAnalyticsCharts({ byCategory, byAgent }: ManagerAnalytics
   const hasCategoryData = byCategory.some((c) => c.lostMinutes > 0 || c.compensatedMinutes > 0);
   const hasAgentData = byAgent.some((a) => a.lostMinutes > 0 || a.compensatedMinutes > 0);
 
-  const customTooltipFormatter = (value: any) => [`${value} دقيقة`, ''];
+  const customTooltipFormatter = (value: any) => [`${value} mins`, ''];
 
   return (
     <Card className="border-border/60 shadow-sm">
       <CardHeader className="pb-2">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
-            <CardTitle className="text-lg font-bold font-heading">
-              التحليلات البيانية لعمليات الفريق (Analytics)
-            </CardTitle>
+            <CardTitle className="text-lg font-bold font-heading">Team Operational Analytics</CardTitle>
             <CardDescription className="text-xs text-muted-foreground mt-0.5">
-              رسم بياني تفصيلي لدقائق الاستثناءات وأرصدة التعويض
+              Visual breakdown of exception minutes and compensation balances
             </CardDescription>
           </div>
         </div>
@@ -57,15 +55,15 @@ export function ManagerAnalyticsCharts({ byCategory, byAgent }: ManagerAnalytics
       <CardContent>
         <Tabs defaultValue="category" className="w-full">
           <TabsList className="grid w-full sm:w-[380px] grid-cols-2 mb-4">
-            <TabsTrigger value="category" className="text-xs font-medium">توزيع فئات الاستثناءات</TabsTrigger>
-            <TabsTrigger value="agent" className="text-xs font-medium">أداء الموظفين والأرصدة</TabsTrigger>
+            <TabsTrigger value="category" className="text-xs">Category Breakdown</TabsTrigger>
+            <TabsTrigger value="agent" className="text-xs">Agent Performance</TabsTrigger>
           </TabsList>
 
           {/* Tab 1: Category Breakdown */}
           <TabsContent value="category" className="space-y-4">
             {!hasCategoryData ? (
               <div className="h-[280px] flex items-center justify-center text-xs text-muted-foreground border border-dashed border-border/70 rounded-xl">
-                لا توجد بيانات مسجلة لفئات الاستثناءات بعد.
+                No category operational data logged yet.
               </div>
             ) : (
               <div className="h-[320px] w-full pt-2">
@@ -85,7 +83,7 @@ export function ManagerAnalyticsCharts({ byCategory, byAgent }: ManagerAnalytics
                     />
                     <YAxis
                       tick={{ fontSize: 11, fill: 'currentColor' }}
-                      unit="د"
+                      unit="m"
                     />
                     <Tooltip
                       formatter={customTooltipFormatter}
@@ -99,13 +97,13 @@ export function ManagerAnalyticsCharts({ byCategory, byAgent }: ManagerAnalytics
                     <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
                     <Bar
                       dataKey="lostMinutes"
-                      name="دقائق مفقودة معتمدة"
+                      name="Approved Lost Minutes"
                       fill="#ef4444"
                       radius={[4, 4, 0, 0]}
                     />
                     <Bar
                       dataKey="compensatedMinutes"
-                      name="دقائق معوضة"
+                      name="Compensated Minutes"
                       fill="#10b981"
                       radius={[4, 4, 0, 0]}
                     />
@@ -119,7 +117,7 @@ export function ManagerAnalyticsCharts({ byCategory, byAgent }: ManagerAnalytics
           <TabsContent value="agent" className="space-y-4">
             {!hasAgentData ? (
               <div className="h-[280px] flex items-center justify-center text-xs text-muted-foreground border border-dashed border-border/70 rounded-xl">
-                لا توجد استثناءات مسجلة لموظفي الفريق بعد.
+                No agent exception records logged yet.
               </div>
             ) : (
               <div className="h-[320px] w-full pt-2">
@@ -139,7 +137,7 @@ export function ManagerAnalyticsCharts({ byCategory, byAgent }: ManagerAnalytics
                     />
                     <YAxis
                       tick={{ fontSize: 11, fill: 'currentColor' }}
-                      unit="د"
+                      unit="m"
                     />
                     <Tooltip
                       formatter={customTooltipFormatter}
@@ -153,19 +151,19 @@ export function ManagerAnalyticsCharts({ byCategory, byAgent }: ManagerAnalytics
                     <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
                     <Bar
                       dataKey="lostMinutes"
-                      name="الوقت المفقود"
+                      name="Lost Time"
                       fill="#f59e0b"
                       radius={[4, 4, 0, 0]}
                     />
                     <Bar
                       dataKey="compensatedMinutes"
-                      name="المعوض"
+                      name="Compensated"
                       fill="#10b981"
                       radius={[4, 4, 0, 0]}
                     />
                     <Bar
                       dataKey="remainingMinutes"
-                      name="الرصيد المتبقي"
+                      name="Remaining Balance"
                       fill="#6366f1"
                       radius={[4, 4, 0, 0]}
                     />
