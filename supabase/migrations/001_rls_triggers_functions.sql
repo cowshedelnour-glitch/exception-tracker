@@ -1,4 +1,4 @@
-﻿-- =============================================================
+-- =============================================================
 -- Exception Tracker — Migration 001
 -- RLS Policies, Functions, Triggers, and Seed Data
 -- Run AFTER drizzle-kit push creates the tables
@@ -168,21 +168,40 @@ CREATE OR REPLACE TRIGGER update_incident_compensation_status
 -- SECTION 5: AUTH USER HANDLER
 -- ============================================================
 
-CREATE OR REPLACE FUNCTION handle_new_user()
-RETURNS TRIGGER LANGUAGE plpgsql SECURITY DEFINER AS $func$
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER 
+LANGUAGE plpgsql 
+SECURITY DEFINER 
+SET search_path = public
+AS $func$
+DECLARE
+  v_role public.user_role := 'agent';
 BEGIN
+  IF NEW.raw_user_meta_data IS NOT NULL AND NEW.raw_user_meta_data->>'role' = 'admin' THEN
+    v_role := 'admin';
+  ELSIF NEW.raw_user_meta_data IS NOT NULL AND NEW.raw_user_meta_data->>'role' = 'manager' THEN
+    v_role := 'manager';
+  END IF;
+
   INSERT INTO public.users (id, full_name, hr_id, email, role, status)
   VALUES (
     NEW.id,
     COALESCE(NEW.raw_user_meta_data->>'full_name', 'Unknown'),
     COALESCE(NEW.raw_user_meta_data->>'hr_id', 'UNKNOWN-' || substr(NEW.id::text, 1, 8)),
     NEW.email,
-    COALESCE((NEW.raw_user_meta_data->>'role')::user_role, 'agent'),
+    v_role,
     'active'
-  ) ON CONFLICT (id) DO NOTHING;
+  ) ON CONFLICT (id) DO UPDATE
+    SET full_name = EXCLUDED.full_name,
+        hr_id = EXCLUDED.hr_id,
+        role = EXCLUDED.role;
+  RETURN NEW;
+EXCEPTION WHEN OTHERS THEN
+  RAISE WARNING 'handle_new_user exception: %', SQLERRM;
   RETURN NEW;
 END;
 $func$;
+
 
 CREATE OR REPLACE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users FOR EACH ROW EXECUTE FUNCTION handle_new_user();
