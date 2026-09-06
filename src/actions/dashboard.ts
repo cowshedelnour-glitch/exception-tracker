@@ -209,6 +209,7 @@ export interface ManagerDashboardData {
     byCategory: Array<{ category: string; lostMinutes: number; compensatedMinutes: number }>;
     byAgent: Array<{ agentName: string; hrId: string; lostMinutes: number; compensatedMinutes: number; remainingMinutes: number }>;
   };
+  teamAgents: Array<{ id: string; fullName: string; hrId: string }>;
 }
 
 export async function getManagerDashboardDataAction(): Promise<{ success: boolean; error?: string; data?: ManagerDashboardData }> {
@@ -267,6 +268,7 @@ export async function getManagerDashboardDataAction(): Promise<{ success: boolea
             byCategory: [],
             byAgent: [],
           },
+          teamAgents: [],
         },
       };
     }
@@ -463,6 +465,7 @@ export async function getManagerDashboardDataAction(): Promise<{ success: boolea
           byCategory,
           byAgent,
         },
+        teamAgents: teamAgents.map((a) => ({ id: a.id, fullName: a.fullName, hrId: a.hrId })),
       },
     };
   } catch (err: any) {

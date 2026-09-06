@@ -21,6 +21,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
+import { ExportToolbar } from '@/components/export/export-toolbar';
 
 interface CompensationItem {
   id: string;
@@ -141,9 +142,9 @@ export function AgentIncidentsTable({ incidents }: AgentIncidentsTableProps) {
             </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="pt-3">
-            <div className="relative">
+          {/* Search Bar & Export Actions Toolbar */}
+          <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <div className="relative flex-1">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search by reference number (EXC-...), category, or date..."
@@ -152,6 +153,10 @@ export function AgentIncidentsTable({ incidents }: AgentIncidentsTableProps) {
                 className="pl-10 h-10 text-sm"
               />
             </div>
+            <ExportToolbar
+              statusFilter={statusFilter}
+              searchQuery={searchQuery}
+            />
           </div>
         </CardHeader>
 

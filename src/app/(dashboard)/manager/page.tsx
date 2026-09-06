@@ -9,6 +9,7 @@ import { PendingIncidentsQueue } from '@/components/manager/pending-incidents-qu
 import { PendingCompensationsQueue } from '@/components/manager/pending-compensations-queue';
 import { ManagerAnalyticsCharts } from '@/components/manager/manager-analytics-charts';
 import { TeamInvitesCard } from '@/components/manager/team-invites-card';
+import { ManagerReportsCard } from '@/components/manager/manager-reports-card';
 
 export const metadata = {
   title: 'Team Manager Dashboard — Exception Tracker',
@@ -29,7 +30,7 @@ export default async function ManagerDashboardPage() {
     );
   }
 
-  const { stats, pendingIncidents, pendingCompensations, invites, analytics } = res.data;
+  const { stats, pendingIncidents, pendingCompensations, invites, analytics, teamAgents } = res.data;
 
   return (
     <div className="space-y-8">
@@ -182,6 +183,9 @@ export default async function ManagerDashboardPage() {
         byCategory={analytics.byCategory}
         byAgent={analytics.byAgent}
       />
+
+      {/* Team Operational Reports & Exports (BRD §32-§34) */}
+      <ManagerReportsCard teamAgents={teamAgents} />
 
       {/* Team Invite Links Management */}
       <TeamInvitesCard invites={invites} />
