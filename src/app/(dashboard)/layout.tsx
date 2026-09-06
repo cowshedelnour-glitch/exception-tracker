@@ -26,10 +26,10 @@ export default async function DashboardLayout({
 
   const roleLabel =
     profile.role === 'admin'
-      ? 'System Administrator'
+      ? 'مسؤول النظام (Admin)'
       : profile.role === 'manager'
-      ? 'Team Manager'
-      : 'Agent';
+      ? 'مدير الفريق (Manager)'
+      : 'موظف (Agent)';
 
   const roleBadgeVariant =
     profile.role === 'admin'
@@ -48,10 +48,10 @@ export default async function DashboardLayout({
               <div className="h-9 w-9 rounded-lg bg-accent/15 border border-accent/30 flex items-center justify-center text-accent">
                 <Activity className="h-5 w-5" />
               </div>
-              <span className="hidden sm:inline">Exception Tracker</span>
+              <span className="hidden sm:inline">متتبع الاستثناءات (Exception Tracker)</span>
             </Link>
 
-            <Badge variant={roleBadgeVariant} className="text-xs capitalize font-mono">
+            <Badge variant={roleBadgeVariant} className="text-xs font-medium">
               {roleLabel}
             </Badge>
 
@@ -61,19 +61,19 @@ export default async function DashboardLayout({
                   href="/admin"
                   className="px-2.5 py-1 text-xs font-medium rounded-md bg-destructive/10 text-destructive border border-destructive/20 hover:bg-destructive/15 transition-colors"
                 >
-                  Admin
+                  لوحة الأدمن
                 </Link>
                 <Link
                   href="/manager"
-                  className="px-2.5 py-1 text-xs font-medium rounded-md bg-accent/10 text-accent border border-accent/20 hover:bg-accent/15 transition-colors"
+                  className="px-2.5 py-1 text-xs font-medium rounded-md bg-accent/15 text-accent border border-accent/30 hover:bg-accent/25 transition-colors font-semibold"
                 >
-                  Manager View
+                  لوحة المدير
                 </Link>
                 <Link
                   href="/agent"
-                  className="px-2.5 py-1 text-xs font-medium rounded-md bg-muted text-foreground border border-border/60 hover:bg-muted/80 transition-colors"
+                  className="px-2.5 py-1 text-xs font-medium rounded-md bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors"
                 >
-                  Agent View
+                  لوحة الموظف
                 </Link>
               </nav>
             )}
@@ -96,11 +96,11 @@ export default async function DashboardLayout({
                   variant="ghost"
                   size="sm"
                   className="h-11 px-3 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
-                  aria-label="Sign Out"
-                  title="Sign Out"
+                  aria-label="تسجيل الخروج"
+                  title="تسجيل الخروج"
                 >
                   <LogOut className="h-4 w-4" />
-                  <span className="ml-1.5 hidden sm:inline text-xs font-medium">Sign Out</span>
+                  <span className="ml-1.5 hidden sm:inline text-xs font-medium">خروج (Sign Out)</span>
                 </Button>
               </form>
             </div>
