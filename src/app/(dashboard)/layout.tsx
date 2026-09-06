@@ -5,7 +5,10 @@ import { Activity, LogOut, Shield, User as UserIcon, UserCheck } from 'lucide-re
 import { getCurrentUserProfile, logoutAction } from '@/actions/auth';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageToggle } from '@/components/ui/language-toggle';
+import { NotificationBell } from '@/components/notifications/notification-bell';
+import { Toaster } from '@/components/ui/sonner';
 import { Button } from '@/components/ui/button';
+
 import { Badge } from '@/components/ui/badge';
 
 export default async function DashboardLayout({
@@ -58,6 +61,7 @@ export default async function DashboardLayout({
             </div>
 
             <div className="flex items-center gap-1.5 pl-2 border-l border-border/60">
+              <NotificationBell userId={profile.id} />
               <LanguageToggle />
               <ThemeToggle />
 
@@ -88,6 +92,9 @@ export default async function DashboardLayout({
       <footer className="py-6 border-t border-border/40 text-center text-xs text-muted-foreground">
         <p>Exception Tracker • Enterprise Operations & Zero-Error Compensation Tracking</p>
       </footer>
+
+      {/* Global Notifications Toaster */}
+      <Toaster position="top-right" richColors />
     </div>
   );
 }
